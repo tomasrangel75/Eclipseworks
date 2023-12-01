@@ -1,10 +1,7 @@
-﻿using Eclipseworks.Persistence.Contexts;
-using System;
+﻿using Eclipseworks.Application.Interfaces.Repositories;
+using Eclipseworks.Domain.Entities.Common.Interfaces;
+using Eclipseworks.Persistence.Context;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eclipseworks.Persistence.Repositories
 {
@@ -19,7 +16,7 @@ namespace Eclipseworks.Persistence.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public IGenericRepository<T> Repository<T>() where T : BaseAuditableEntity
+        public IGenericRepository<T> Repository<T>() where T : class, IEntity, IBaseEntityEvents
         {
             if (_repositories == null)
                 _repositories = new Hashtable();
@@ -47,11 +44,6 @@ namespace Eclipseworks.Persistence.Repositories
         public async Task<int> Save(CancellationToken cancellationToken)
         {
             return await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public Task<int> SaveAndRemoveCache(CancellationToken cancellationToken, params string[] cacheKeys)
-        {
-            throw new NotImplementedException();
         }
 
         public void Dispose()

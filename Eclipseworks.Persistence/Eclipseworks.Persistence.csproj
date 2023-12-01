@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Eclipseworks.Application\Eclipseworks.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Context\Migrations\" />
+  </ItemGroup>
+
 </Project>

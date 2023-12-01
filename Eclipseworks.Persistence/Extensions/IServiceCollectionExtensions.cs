@@ -1,4 +1,6 @@
-﻿using Eclipseworks.Persistence.Contexts;
+﻿using Eclipseworks.Application.Interfaces.Repositories;
+using Eclipseworks.Persistence.Context;
+using Eclipseworks.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,15 +11,9 @@ namespace Eclipseworks.Persistence.Extensions
     {
         public static void AddPersistenceLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddMappings();
             services.AddDbContext(configuration);
             services.AddRepositories();
         }
-
-        //private static void AddMappings(this IServiceCollection services)
-        //{
-        //    services.AddAutoMapper(Assembly.GetExecutingAssembly());
-        //}
 
         public static void AddDbContext(this IServiceCollection services, IConfiguration configuration)
         {
@@ -32,11 +28,9 @@ namespace Eclipseworks.Persistence.Extensions
         {
             services
                 .AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork))
-                .AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>))
-                .AddTransient<IPlayerRepository, PlayerRepository>()
-                .AddTransient<IClubRepository, ClubRepository>()
-                .AddTransient<IStadiumRepository, StadiumRepository>()
-                .AddTransient<ICountryRepository, CountryRepository>();
+                .AddTransient(typeof(IGenericRepository<>), typeof(IGenericRepository<>));
+            //    .AddTransient<IPlayerRepository, PlayerRepository>()
+        
         }
     }
 }
