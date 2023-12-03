@@ -17,15 +17,7 @@ namespace Eclipseworks.Persistence.Context.Builders
             builder
                 .Property(t => t.ColunaModificada)
                 .IsRequired();
-
-            builder
-                .Property(t => t.ModificadoPor)
-                .IsRequired();
-
-            builder
-                .Property(t => t.DataModificacao)
-                .IsRequired();
-
+           
             builder
                 .Property(t => t.TipoModificacao)
                 .IsRequired();

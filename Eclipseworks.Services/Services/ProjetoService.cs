@@ -31,9 +31,10 @@ namespace Eclipseworks.Services.Services
                     Nome = command.Nome?.Trim(), 
                     Descricao = command.Descricao, 
                     Status =  StatusProjetoEnum.ativo,
-                    CriadoPor = command.UserId};
+                    CriadoPor = command.UserId,
+                    DataCriacao = DateTimeOffset.Now};
 
-                projeto = await _unitOfWork.Repository<Projeto>().AddAsync(projeto); ;
+                projeto = await _unitOfWork.Repository<Projeto>().AddAsync(projeto);
 
                 await _unitOfWork.Save(cancellationToken);
 
@@ -43,7 +44,6 @@ namespace Eclipseworks.Services.Services
             {
                 return await Result<int>.FailureAsync(ex);
             }
-
         }
                 
         public async Task<Result<int>> ExcluirProjeto(DeleteProjetoDto command, CancellationToken cancellationToken)
@@ -59,7 +59,7 @@ namespace Eclipseworks.Services.Services
                     if (tarefasPendentes != null && tarefasPendentes.Any())
                     {
                         var mensagemTarefasPendentes =
-                            tarefasPendentes.Select(item => $"A tarefa de ID {item.Id} está pendente.").ToList();
+                            tarefasPendentes.Select(item => $"A tarefa de ID {item.Id} está pendente. Conclua ou remova a tarefa primeiro").ToList();
 
                         return await Result<int>.FailureAsync(mensagemTarefasPendentes);
                     }

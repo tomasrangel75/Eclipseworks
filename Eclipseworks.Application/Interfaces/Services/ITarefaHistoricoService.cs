@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Eclipseworks.Application.DTOs.TarefaHistorico.Commands;
+using Eclipseworks.Shared;
 
 namespace Eclipseworks.Application.Interfaces.Services
 {
-    public class ITarefaHistoricoService
+    public interface ITarefaHistoricoService
     {
+        Task<Result<int>> CriarTarefaHistorico(CreateTarefaHistoricoDto command, CancellationToken cancellationToken);
+
+        Task<Result<int>> CriarTarefaComentario(CreateTarefaComentarioDto command, CancellationToken cancellationToken);
     }
 }

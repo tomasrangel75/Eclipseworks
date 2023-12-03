@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-
-using System.Reflection;
-using System.Security.Cryptography.Xml;
-using System.Security;
-using Eclipseworks.Domain.Entities;
 using Eclipseworks.Application.DTOs.Projeto.Queries;
+using Eclipseworks.Application.DTOs.Tarefa.Queries;
+using Eclipseworks.Domain.Entities;
 using Eclipseworks.Shared;
 
 namespace Eclipseworks.Application.Common.Mappings
@@ -45,12 +42,46 @@ namespace Eclipseworks.Application.Common.Mappings
 
             #region Tarefa
 
-
-            #endregion
-
-
-            #region TarefaHistorico
-
+            CreateMap<Tarefa, TarefaResponseDto>()
+               .ForMember(
+                   dest => dest.Id,
+                   options => options
+                   .MapFrom(src => src.Id))
+                .ForMember(
+                   dest => dest.Titulo,
+                   options => options
+                   .MapFrom(
+                           src => src.Titulo))
+               .ForMember(
+                   dest => dest.Descricao,
+                   options => options
+                   .MapFrom(
+                           src => src.Descricao))
+               .ForMember(
+                   dest => dest.Status,
+                   options => options
+                   .MapFrom(
+                           src => EnumHelper.GetEnumDescription(src.Status)))
+                .ForMember(
+                   dest => dest.Prioridade,
+                   options => options
+                   .MapFrom(
+                           src => EnumHelper.GetEnumDescription(src.Prioridade)))
+               .ForMember(
+                   dest => dest.DataCriacao,
+                   options => options
+                   .MapFrom(
+                           src => src.DataCriacao))
+                .ForMember(
+                   dest => dest.DataVencimento,
+                   options => options
+                   .MapFrom(
+                           src => src.DataVencimento))
+               .ForMember(
+                   dest => dest.DataAtualizacao,
+                   options => options
+                   .MapFrom(
+                           src => src.DataAtualizacao));
 
             #endregion
 

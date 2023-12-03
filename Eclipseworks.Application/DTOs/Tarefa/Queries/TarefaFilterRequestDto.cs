@@ -2,5 +2,6 @@
 {
     public class TarefaFilterRequestDto
     {
+        public int ProjetoId { get; set; }
     }
 }
