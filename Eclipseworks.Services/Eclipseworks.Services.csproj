@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Eclipseworks.Application\Eclipseworks.Application.csproj" />
+    <ProjectReference Include="..\Eclipseworks.Domain\Eclipseworks.Domain.csproj" />
+    <ProjectReference Include="..\Eclipseworks.Shared\Eclipseworks.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

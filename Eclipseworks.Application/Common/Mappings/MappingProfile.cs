@@ -1,53 +1,59 @@
 ﻿using AutoMapper;
 
 using System.Reflection;
+using System.Security.Cryptography.Xml;
+using System.Security;
+using Eclipseworks.Domain.Entities;
+using Eclipseworks.Application.DTOs.Projeto.Queries;
+using Eclipseworks.Shared;
 
 namespace Eclipseworks.Application.Common.Mappings
 {
-    public class MappingProfile : Profile
+    public class MappingProfiles : Profile
     {
-        public MappingProfile()
+        public MappingProfiles()
         {
-            ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
-        }
+            #region Projeto
 
-        private void ApplyMappingsFromAssembly(Assembly assembly)
-        {
-            var mapFromType = typeof(IMapFrom<>);
+            CreateMap<Projeto, ProjetoResponseDto>()
+               .ForMember(
+                   dest => dest.Id,
+                   options => options
+                   .MapFrom(src => src.Id))
+               .ForMember(
+                   dest => dest.Descricao,
+                   options => options
+                   .MapFrom(
+                           src => src.Descricao))
+               .ForMember(
+                   dest => dest.Status,
+                   options => options
+                   .MapFrom(
+                           src => EnumHelper.GetEnumDescription(src.Status)))
+               .ForMember(
+                   dest => dest.DataCriacao,
+                   options => options
+                   .MapFrom(
+                           src => src.DataCriacao))
+               .ForMember(
+                   dest => dest.DataAtualizacao,
+                   options => options
+                   .MapFrom(
+                           src => src.DataAtualizacao));
 
-            var mappingMethodName = nameof(IMapFrom<object>.Mapping);
+            #endregion
 
-            bool HasInterface(Type t) => t.IsGenericType && t.GetGenericTypeDefinition() == mapFromType;
+            #region Tarefa
 
-            var types = assembly.GetExportedTypes().Where(t => t.GetInterfaces().Any(HasInterface)).ToList();
 
-            var argumentTypes = new Type[] { typeof(Profile) };
+            #endregion
 
-            foreach (var type in types)
-            {
-                var instance = Activator.CreateInstance(type);
 
-                var methodInfo = type.GetMethod(mappingMethodName);
+            #region TarefaHistorico
 
-                if (methodInfo != null)
-                {
-                    methodInfo.Invoke(instance, new object[] { this });
-                }
-                else
-                {
-                    var interfaces = type.GetInterfaces().Where(HasInterface).ToList();
 
-                    if (interfaces.Count > 0)
-                    {
-                        foreach (var @interface in interfaces)
-                        {
-                            var interfaceMethodInfo = @interface.GetMethod(mappingMethodName, argumentTypes);
+            #endregion
 
-                            interfaceMethodInfo.Invoke(instance, new object[] { this });
-                        }
-                    }
-                }
-            }
         }
     }
 }

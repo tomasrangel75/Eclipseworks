@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eclipseworks.API", "Eclipseworks.API\Eclipseworks.API.csproj", "{C11B1026-3A88-40C8-AE15-FA08FC269A2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eclipseworks.API", "Eclipseworks.API\Eclipseworks.API.csproj", "{C11B1026-3A88-40C8-AE15-FA08FC269A2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eclipseworks.Domain", "Eclipseworks.Domain\Eclipseworks.Domain.csproj", "{0F2B2893-1C53-4CAD-BA11-B40DA39585CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eclipseworks.Domain", "Eclipseworks.Domain\Eclipseworks.Domain.csproj", "{0F2B2893-1C53-4CAD-BA11-B40DA39585CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eclipseworks.Infrastructure", "Eclipseworks.Infrastructure\Eclipseworks.Infrastructure.csproj", "{563D44F4-D90A-448A-A5ED-8C13CFD4C6F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eclipseworks.Infrastructure", "Eclipseworks.Infrastructure\Eclipseworks.Infrastructure.csproj", "{563D44F4-D90A-448A-A5ED-8C13CFD4C6F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eclipseworks.Application", "Eclipseworks.Application\Eclipseworks.Application.csproj", "{64AB5263-6491-4036-A9FD-227F446AFE0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eclipseworks.Application", "Eclipseworks.Application\Eclipseworks.Application.csproj", "{64AB5263-6491-4036-A9FD-227F446AFE0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eclipseworks.Persistence", "Eclipseworks.Persistence\Eclipseworks.Persistence.csproj", "{AC8FE67E-91CF-4365-BE01-A65C7EA251C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eclipseworks.Persistence", "Eclipseworks.Persistence\Eclipseworks.Persistence.csproj", "{AC8FE67E-91CF-4365-BE01-A65C7EA251C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eclipseworks.Shared", "Eclipseworks.Shared\Eclipseworks.Shared.csproj", "{5F271492-BF07-48AB-88B3-211F54E1B0D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eclipseworks.Shared", "Eclipseworks.Shared\Eclipseworks.Shared.csproj", "{5F271492-BF07-48AB-88B3-211F54E1B0D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C90A1161-5675-4938-8646-077A08595D15}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{0B763373-605C-47A1-9D0F-E59465A96D2F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{043E3DF0-CDBC-4562-A7E7-2C078149BAEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eclipseworks.Services", "Eclipseworks.Services\Eclipseworks.Services.csproj", "{17CC8AF6-D30D-4E46-9654-F2EF77933BA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{5F271492-BF07-48AB-88B3-211F54E1B0D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F271492-BF07-48AB-88B3-211F54E1B0D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F271492-BF07-48AB-88B3-211F54E1B0D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17CC8AF6-D30D-4E46-9654-F2EF77933BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17CC8AF6-D30D-4E46-9654-F2EF77933BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17CC8AF6-D30D-4E46-9654-F2EF77933BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17CC8AF6-D30D-4E46-9654-F2EF77933BA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{64AB5263-6491-4036-A9FD-227F446AFE0F} = {C90A1161-5675-4938-8646-077A08595D15}
 		{AC8FE67E-91CF-4365-BE01-A65C7EA251C6} = {281FF5BA-E5EB-453F-B75A-C0A4D9CAB564}
 		{5F271492-BF07-48AB-88B3-211F54E1B0D7} = {0B763373-605C-47A1-9D0F-E59465A96D2F}
+		{17CC8AF6-D30D-4E46-9654-F2EF77933BA7} = {C90A1161-5675-4938-8646-077A08595D15}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {45C86469-22EE-4C00-9E4A-879796B570B4}
