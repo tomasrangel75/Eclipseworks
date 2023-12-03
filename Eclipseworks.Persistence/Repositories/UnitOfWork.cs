@@ -46,6 +46,10 @@ namespace Eclipseworks.Persistence.Repositories
             return await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
+        public async Task<int> Save()
+        {
+            return await _dbContext.SaveChangesAsync();
+        }
         public void Dispose()
         {
             Dispose(true);
