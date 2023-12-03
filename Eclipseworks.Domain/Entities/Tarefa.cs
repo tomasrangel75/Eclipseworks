@@ -13,7 +13,7 @@ namespace Eclipseworks.Domain.Entities
 
         public string Descricao { get; set; }
 
-        public DateTime DataVencimento { get; set; }
+        public DateTimeOffset DataVencimento { get; set; }
 
         public StatusTarefaEnum Status { get; set; }
 
