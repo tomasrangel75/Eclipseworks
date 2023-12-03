@@ -8,7 +8,7 @@ namespace Eclipseworks.Application.Interfaces.Services
     {
         Task<Result<int>> CriarProjeto(CreateProjetoDto request, CancellationToken cancellationToken);
         Task<Result<int>> ExcluirProjeto(DeleteProjetoDto command, CancellationToken cancellationToken);
-        Task<Result<ProjetoResponseDtoList>> ConsultarProjeto(ProjetoFilterRequestDto query, CancellationToken cancellationToken);
+        Task<Result<ProjetoResponseDtoList>> ConsultarProjeto(ProjetoFilterRequestDto query);
     }
 
 

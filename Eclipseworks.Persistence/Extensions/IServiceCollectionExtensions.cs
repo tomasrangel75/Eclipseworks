@@ -17,20 +17,24 @@ namespace Eclipseworks.Persistence.Extensions
 
         public static void AddDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-
             services.AddDbContext<ApplicationDbContext>(options =>
-               options.UseSqlServer(connectionString,
-                   builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+            {
+                options
+                .UseSqlServer(configuration.GetConnectionString("DefaultConnection"), opt =>
+                {
+                    opt.CommandTimeout(180);
+                    opt.EnableRetryOnFailure(5);
+                });
+            });
+
         }
 
         private static void AddRepositories(this IServiceCollection services)
         {
             services
-                .AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork))
-                .AddTransient(typeof(IGenericRepository<>), typeof(IGenericRepository<>));
-            //    .AddTransient<IPlayerRepository, PlayerRepository>()
-        
+                .AddScoped<IUnitOfWork, UnitOfWork>()
+                .AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
         }
     }
 }
