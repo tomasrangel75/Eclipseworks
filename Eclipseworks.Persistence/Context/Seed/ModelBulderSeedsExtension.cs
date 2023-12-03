@@ -44,11 +44,11 @@ namespace Eclipseworks.Persistence.Context.Seed
         {
             List<UserRole> userRoles = new List<UserRole>()
             {
-                new UserRole(){Id = 1,  RoleId = 1},
-                new UserRole(){Id = 1,  RoleId = 2},
-                new UserRole(){Id = 2, RoleId = 2},
-                new UserRole(){Id = 3, RoleId = 3},
-                new UserRole(){Id = 3,  RoleId = 2},
+                new UserRole(){Id = 1,  RoleId = 1, UserId =1},
+                new UserRole(){Id = 2,  RoleId = 2, UserId =1},
+                new UserRole(){Id = 3, RoleId = 2, UserId =2},
+                new UserRole(){Id = 4, RoleId = 3, UserId =3},
+                new UserRole(){Id = 5,  RoleId = 2, UserId =3},
             };
 
             modelBuilder.SetDataToEntity<UserRole>(userRoles);

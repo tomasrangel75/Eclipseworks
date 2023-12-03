@@ -5,9 +5,9 @@ using Eclipseworks.Application.Interfaces.Repositories;
 using Eclipseworks.Application.Interfaces.Services;
 using Eclipseworks.Domain.Entities;
 using Eclipseworks.Domain.Entities.Enums;
+
 using Eclipseworks.Shared;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Eclipseworks.Services.Services
 {
@@ -76,6 +76,8 @@ namespace Eclipseworks.Services.Services
 
                     await _unitOfWork.Save(cancellationToken);
 
+                    await RegistrarAlteracoes(tarefa, command);
+
                     return await Result<int>.SuccessAsync(tarefa.Id, "Tarefa atualizada com sucesso.");
                 }
                 else
@@ -90,6 +92,8 @@ namespace Eclipseworks.Services.Services
 
         }
 
+       
+      
         public async Task<Result<int>> ExcluirTarefa(DeleteTarefaDto command, CancellationToken cancellationToken)
         {
             try
@@ -134,6 +138,35 @@ namespace Eclipseworks.Services.Services
 
             return await Result<TarefaResponseDtoList>.SuccessAsync(result);
 
+        }
+
+        #endregion
+
+        #region private
+
+        private async Task RegistrarAlteracoes(Tarefa tarefa, UpdateTarefaDto command)
+        {
+            if (tarefa.Titulo != command.Titulo) await RegistrarAlteracoes(command.UserId, command.Id, "Título", command.Titulo);
+            if (tarefa.Descricao != command.Descricao) await RegistrarAlteracoes(command.UserId, command.Id, "Descrição", command.Descricao);
+            if (tarefa.DataVencimento != command.DataVencimento) await RegistrarAlteracoes(command.UserId, command.Id, "DataVencimento", command.DataVencimento.ToString());
+            if (tarefa.Status != command.Status) await RegistrarAlteracoes(command.UserId, command.Id, "Status", EnumHelper.GetEnumDescription(command.Status));
+        }
+
+        private async Task RegistrarAlteracoes(int userId, int tarefaId, string? coluna, string? alteracao)
+        {
+                var tarefaHistorico = new TarefaHistorico
+                {
+                    TarefaId = tarefaId,
+                    ColunaModificada = coluna,
+                    TipoModificacao = TipoModificacaoEnum.alteracao,
+                    Modificacao = alteracao,
+                    CriadoPor = userId,
+                    DataCriacao = DateTimeOffset.Now
+                };
+
+                tarefaHistorico = await _unitOfWork.Repository<TarefaHistorico>().AddAsync(tarefaHistorico);
+
+                await _unitOfWork.Save();
         }
 
         #endregion

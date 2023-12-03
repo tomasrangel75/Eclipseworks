@@ -87,12 +87,12 @@ namespace Eclipseworks.Services.Services
 
         #region queries
 
-        public async Task<Result<ProjetoResponseDtoList>> ConsultarProjeto(ProjetoFilterRequestDto query, CancellationToken cancellationToken)
+        public async Task<Result<ProjetoResponseDtoList>> ConsultarProjeto(ProjetoFilterRequestDto query)
         {
             var projetos = 
                 await _unitOfWork.Repository<Projeto>().Entities
                 .Where(p => p.CriadoPor == query.UserId).OrderBy(p => p.Id)
-                .ToListAsync(cancellationToken: cancellationToken);
+                .ToListAsync();
 
             var result = new ProjetoResponseDtoList { 
                 ProjetoResponseDtos = _mapper.Map<ICollection<ProjetoResponseDto>>(projetos)?.ToList()};

@@ -9,7 +9,7 @@ namespace Eclipseworks.Application.Extensions
         public static void AddApplicationLayer(this IServiceCollection services)
         {
             services.AddAutoMapper();
-            services.AddValidators();
+           // services.AddValidators();
         }
 
         private static void AddAutoMapper(this IServiceCollection services)
@@ -19,7 +19,7 @@ namespace Eclipseworks.Application.Extensions
 
         private static void AddValidators(this IServiceCollection services)
         {
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+           // services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

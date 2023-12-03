@@ -13,6 +13,8 @@ namespace Eclipseworks.Application.Interfaces.Repositories
 
         Task<int> Save(CancellationToken cancellationToken);
 
+        Task<int> Save();
+
         Task Rollback();
     }
 }

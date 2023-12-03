@@ -25,8 +25,9 @@ namespace Eclipseworks.Persistence.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(new UserConfiguration().Configure);
-            modelBuilder.Entity<UserRole>(new UserRoleConfiguration().Configure);
             modelBuilder.Entity<Role>(new RoleConfiguration().Configure);
+            modelBuilder.Entity<UserRole>(new UserRoleConfiguration().Configure);
+  
             modelBuilder.Entity<Projeto>(new ProjetoConfiguration().Configure);
             modelBuilder.Entity<Tarefa>(new TarefaConfiguration().Configure);
             modelBuilder.Entity<TarefaHistorico>(new TarefaHistoricoConfiguration().Configure);
