@@ -2,9 +2,9 @@
 {
     public interface IBaseEntityEvents
     {
-        int? CreatedBy { get; set; }
-        DateTime? CreatedDate { get; set; }
-        int? UpdatedBy { get; set; }
-        DateTime? UpdatedDate { get; set; }
+        int CriadoPor { get; set; }
+        DateTimeOffset DataCriacao { get; set; }
+        int? AtualizadoPor { get; set; }
+        DateTimeOffset? DataAtualizacao { get; set; }
     }
 }

@@ -1,12 +1,14 @@
-﻿namespace Eclipseworks.Domain.Entities
+﻿using Eclipseworks.Domain.Entities.Common;
+
+namespace Eclipseworks.Domain.Entities
 {
-    public sealed class UserRole
+    public sealed class UserRole : BaseEntity
     {
         public int UserId { get; set; }
-        public User? User { get; set; }
+        public User User { get; set; }
 
         public int RoleId { get; set; }
                 
-        public Role? Role { get; set; }
+        public Role Role { get; set; }
     }
 }

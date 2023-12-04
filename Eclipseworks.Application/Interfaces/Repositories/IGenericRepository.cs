@@ -2,7 +2,7 @@
 
 namespace Eclipseworks.Application.Interfaces.Repositories
 {
-    public interface IGenericRepository<T> where T : class, IEntity
+    public interface IGenericRepository<T> where T : class, IEntity, IBaseEntityEvents
     {
         IQueryable<T> Entities { get; }
 

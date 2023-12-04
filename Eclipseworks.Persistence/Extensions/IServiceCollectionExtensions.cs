@@ -1,4 +1,6 @@
-﻿using Eclipseworks.Persistence.Contexts;
+﻿using Eclipseworks.Application.Interfaces.Repositories;
+using Eclipseworks.Persistence.Context;
+using Eclipseworks.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,34 +11,32 @@ namespace Eclipseworks.Persistence.Extensions
     {
         public static void AddPersistenceLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddMappings();
             services.AddDbContext(configuration);
             services.AddRepositories();
         }
 
-        //private static void AddMappings(this IServiceCollection services)
-        //{
-        //    services.AddAutoMapper(Assembly.GetExecutingAssembly());
-        //}
-
         public static void AddDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-
             services.AddDbContext<ApplicationDbContext>(options =>
-               options.UseSqlServer(connectionString,
-                   builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+            {
+                options
+                .UseSqlServer(configuration.GetConnectionString("DefaultConnection"), opt =>
+                {
+                    opt.CommandTimeout(180);
+                    opt.EnableRetryOnFailure(5);
+                });
+            });
+
         }
 
         private static void AddRepositories(this IServiceCollection services)
         {
             services
-                .AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork))
-                .AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>))
-                .AddTransient<IPlayerRepository, PlayerRepository>()
-                .AddTransient<IClubRepository, ClubRepository>()
-                .AddTransient<IStadiumRepository, StadiumRepository>()
-                .AddTransient<ICountryRepository, CountryRepository>();
+                .AddScoped<IUnitOfWork, UnitOfWork>()
+                .AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>))
+                .AddScoped<IProjetoRepository, ProjetoRepository>()
+                .AddScoped<ITarefaHistoricoRepository, TarefaHistoricoRepository>()
+                .AddScoped<ITarefaRepository, TarefaRepository>();
         }
     }
 }
