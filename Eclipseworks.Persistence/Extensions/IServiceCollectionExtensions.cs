@@ -33,8 +33,10 @@ namespace Eclipseworks.Persistence.Extensions
         {
             services
                 .AddScoped<IUnitOfWork, UnitOfWork>()
-                .AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
+                .AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>))
+                .AddScoped<IProjetoRepository, ProjetoRepository>()
+                .AddScoped<ITarefaHistoricoRepository, TarefaHistoricoRepository>()
+                .AddScoped<ITarefaRepository, TarefaRepository>();
         }
     }
 }

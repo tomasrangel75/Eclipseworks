@@ -3,30 +3,56 @@ using Eclipseworks.Application.DTOs.Projeto.Commands;
 using Eclipseworks.Application.DTOs.Projeto.Queries;
 using Eclipseworks.Application.Interfaces.Repositories;
 using Eclipseworks.Application.Interfaces.Services;
+using Eclipseworks.Application.Interfaces.Validacao;
 using Eclipseworks.Domain.Entities;
 using Eclipseworks.Domain.Entities.Enums;
 using Eclipseworks.Shared;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.ComponentModel.DataAnnotations;
 
 namespace Eclipseworks.Services.Services
 {
     public class ProjetoService : IProjetoService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProjetoRepository _projetoRepository;
         private readonly IMapper _mapper;
 
-        public ProjetoService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ProjetoService(IUnitOfWork unitOfWork, IProjetoRepository projetoRepository, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _projetoRepository = projetoRepository;
             _mapper = mapper;
         }
 
         #region commands
 
-        public async Task<Result<int>> CriarProjeto(CreateProjetoDto command, CancellationToken cancellationToken)
+        public async Task<Result<int>> CriarProjeto(CreateProjetoDto command)
         {
             try
             {
+                #region validacao
+
+                List<string>? errorMessages = new();
+                var validador = new ValidaProjeto();
+                var result = validador.Validate(command);
+                if (!result.IsValid)
+                {
+                    errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+                    return await Result<int>.FailureAsync(errorMessages);
+                }
+
+                var validaNome = await _projetoRepository.VerificaNomeProjeto(command.Nome);
+
+                if (validaNome)
+                {
+                    errorMessages.Add("Nome já utilizado.") ;
+                    return await Result<int>.FailureAsync(errorMessages);
+                }
+
+                #endregion
+
                 var projeto = new Projeto {
                     Nome = command.Nome?.Trim(), 
                     Descricao = command.Descricao, 
@@ -36,7 +62,7 @@ namespace Eclipseworks.Services.Services
 
                 projeto = await _unitOfWork.Repository<Projeto>().AddAsync(projeto);
 
-                await _unitOfWork.Save(cancellationToken);
+                await _unitOfWork.Save();
 
                 return await Result<int>.SuccessAsync(projeto.Id, "Projeto criado com sucesso.");
             }
@@ -46,7 +72,7 @@ namespace Eclipseworks.Services.Services
             }
         }
                 
-        public async Task<Result<int>> ExcluirProjeto(DeleteProjetoDto command, CancellationToken cancellationToken)
+        public async Task<Result<int>> ExcluirProjeto(DeleteProjetoDto command)
         {
             try
             {
@@ -66,7 +92,7 @@ namespace Eclipseworks.Services.Services
 
                     await _unitOfWork.Repository<Projeto>().DeleteAsync(projeto);
 
-                    await _unitOfWork.Save(cancellationToken);
+                    await _unitOfWork.Save();
 
                     return await Result<int>.SuccessAsync(projeto.Id, "Projeto excluído com sucesso.");
                 }

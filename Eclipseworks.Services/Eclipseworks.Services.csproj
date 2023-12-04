@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Eclipseworks.Application\Eclipseworks.Application.csproj" />
     <ProjectReference Include="..\Eclipseworks.Domain\Eclipseworks.Domain.csproj" />
     <ProjectReference Include="..\Eclipseworks.Shared\Eclipseworks.Shared.csproj" />
   </ItemGroup>

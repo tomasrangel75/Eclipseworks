@@ -6,9 +6,9 @@ namespace Eclipseworks.Application.Interfaces.Services
 {
     public interface ITarefaService
     {
-        Task<Result<int>> CriarTarefa(CreateTarefaDto command, CancellationToken cancellationToken);
-        Task<Result<int>> AtualizarTarefa(UpdateTarefaDto command, CancellationToken cancellationToken);
-        Task<Result<int>> ExcluirTarefa(DeleteTarefaDto command, CancellationToken cancellationToken);
-        Task<Result<TarefaResponseDtoList>> ConsultarTarefa(TarefaFilterRequestDto query, CancellationToken cancellationToken);
+        Task<Result<int>> CriarTarefa(CreateTarefaDto command);
+        Task<Result<int>> AtualizarTarefa(UpdateTarefaDto command);
+        Task<Result<int>> ExcluirTarefa(DeleteTarefaDto command);
+        Task<Result<TarefaResponseDtoList>> ConsultarTarefa(TarefaFilterRequestDto query);
     }
 }

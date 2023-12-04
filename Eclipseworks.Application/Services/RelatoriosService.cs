@@ -8,11 +8,11 @@ using Eclipseworks.Shared;
 
 namespace Eclipseworks.Services.Services
 {
-    public class RelatoriosService : IRelatorioService
+    public class RelatorioService : IRelatorioService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public RelatoriosService(IUnitOfWork unitOfWork)
+        public RelatorioService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

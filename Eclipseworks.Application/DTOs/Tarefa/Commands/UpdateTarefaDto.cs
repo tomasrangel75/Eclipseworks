@@ -11,7 +11,7 @@ namespace Eclipseworks.Application.DTOs.Tarefa.Commands
 
         public DateTimeOffset DataVencimento { get; set; }
 
-        public StatusTarefaEnum Status { get; set; }
+        public int Status { get; set; }
 
         public int UserId { get; set; }
     }
