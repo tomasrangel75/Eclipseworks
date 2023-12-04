@@ -23,7 +23,7 @@ namespace Eclipseworks.Persistence.Context.Builders
                 .IsRequired();
 
             builder
-                .Property(t => t.Modificacao)
+                .Property(t => t.ValorAtual)
                 .IsRequired();
 
             builder

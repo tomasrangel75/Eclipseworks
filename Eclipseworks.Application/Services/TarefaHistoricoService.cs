@@ -27,7 +27,8 @@ namespace Eclipseworks.Services.Services
                      TarefaId = command.TarefaId,
                      ColunaModificada  = command.ColunaModificada,
                      TipoModificacao =  TipoModificacaoEnum.alteracao,
-                     Modificacao = command.Modificacao,
+                     ValorAnterior = command.ValorAnterior,
+                     ValorAtual = command.ValorAtual,
                      CriadoPor = command.ModificadoPor,
                      DataCriacao = DateTimeOffset.Now
                 };

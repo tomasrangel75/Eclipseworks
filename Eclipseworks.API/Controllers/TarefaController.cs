@@ -1,83 +1,54 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Eclipseworks.Application.DTOs.Tarefa.Commands;
+using Eclipseworks.Application.DTOs.Tarefa.Queries;
+using Eclipseworks.Application.Interfaces.Services;
+using Eclipseworks.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eclipseworks.API.Controllers
 {
-    public class TarefaController : Controller
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiController]
+    public class TarefaController : ApiControllerBase
     {
-        // GET: TarefaController
-        public ActionResult Index()
+        private readonly ITarefaService _tarefaService;
+
+        public TarefaController(ITarefaService tarefaService)
         {
-            return View();
+            _tarefaService = tarefaService;
+
         }
 
-        // GET: TarefaController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet("ConsultarTarefaPorProjeto/{id}")]
+        public async Task<ActionResult<Result<TarefaResponseDtoList>>> ConsultarTarefaPorProjeto(int id)
         {
-            return View();
+            var filtro = new TarefaFilterRequestDto() { ProjetoId = id };
+            return await _tarefaService.ConsultarTarefa(filtro);
         }
 
-        // GET: TarefaController/Create
-        public ActionResult Create()
+        [HttpPost("CadastrarTarefa")]
+        public async Task<ActionResult<Result<int>>> CriarTarefa([FromBody] CreateTarefaDto command)
         {
-            return View();
+            return await _tarefaService.CriarTarefa(command);
         }
 
-        // POST: TarefaController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [HttpPut("AtualizarTarefa/{id}")]
+        public async Task<ActionResult<Result<int>>> AtualizarTarefa(int id, [FromBody] UpdateTarefaDto command)
         {
-            try
+            if (id != command.Id)
             {
-                return RedirectToAction(nameof(Index));
+                return BadRequest();
             }
-            catch
-            {
-                return View();
-            }
+
+            return await _tarefaService.AtualizarTarefa(command);
         }
 
-        // GET: TarefaController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpDelete("ExcluirTarefa/{id}")]
+        public async Task<ActionResult<Result<int>>> ExcluirTarefa(int id)
         {
-            return View();
-        }
+            var deleteTarefaDto = new DeleteTarefaDto() { Id = id};
 
-        // POST: TarefaController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: TarefaController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TarefaController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return await _tarefaService.ExcluirTarefa(deleteTarefaDto); ;
         }
     }
 }

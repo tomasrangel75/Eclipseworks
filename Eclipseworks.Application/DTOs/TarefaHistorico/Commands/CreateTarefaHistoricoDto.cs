@@ -6,7 +6,8 @@ namespace Eclipseworks.Application.DTOs.TarefaHistorico.Commands
     {
         public string ColunaModificada { get; set; }
         public int ModificadoPor { get; set; }
-        public string Modificacao { get; set; }
+        public string? ValorAnterior { get; set; }
+        public string? ValorAtual { get; set; }
         public int TarefaId { get; set; }
     }
 }
