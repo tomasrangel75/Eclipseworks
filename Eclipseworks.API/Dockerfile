@@ -8,6 +8,11 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Eclipseworks.API/Eclipseworks.API.csproj", "Eclipseworks.API/"]
+COPY ["Eclipseworks.Application/Eclipseworks.Application.csproj", "Eclipseworks.Application/"]
+COPY ["Eclipseworks.Domain/Eclipseworks.Domain.csproj", "Eclipseworks.Domain/"]
+COPY ["Eclipseworks.Shared/Eclipseworks.Shared.csproj", "Eclipseworks.Shared/"]
+COPY ["Eclipseworks.Infrastructure/Eclipseworks.Infrastructure.csproj", "Eclipseworks.Infrastructure/"]
+COPY ["Eclipseworks.Persistence/Eclipseworks.Persistence.csproj", "Eclipseworks.Persistence/"]
 RUN dotnet restore "Eclipseworks.API/Eclipseworks.API.csproj"
 COPY . .
 WORKDIR "/src/Eclipseworks.API"
