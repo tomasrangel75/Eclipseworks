@@ -34,10 +34,8 @@ namespace Eclipseworks.Services.Services
             {
                 #region validacao
 
-                var numeroTarefas =
-                    _unitOfWork.Repository<Tarefa>().Entities
-                   .Where(t => t.ProjetoId == command.ProjetoId).Count();
-                if(numeroTarefas == 20) return await Result<int>.FailureAsync("Número de tarefas excedido.");
+                var numeroTarefas = await _tarefaRepository.VerificaNumeroDeTarefasPorProjeto(command.ProjetoId);
+                if (numeroTarefas >= 20) return await Result<int>.FailureAsync("Número de tarefas excedido.");
 
 
                 List<string>? errorMessages = new();
@@ -75,7 +73,7 @@ namespace Eclipseworks.Services.Services
 
                 await _unitOfWork.Save();
 
-                return await Result<int>.SuccessAsync(tarefa.Id, "Tarefa criada com sucesso.");
+                return await Result<int>.SuccessAsync("Tarefa criada com sucesso.");
             }
             catch (Exception ex)
             {

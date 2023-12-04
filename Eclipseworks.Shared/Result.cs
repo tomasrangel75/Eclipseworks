@@ -15,8 +15,6 @@ namespace Eclipseworks.Shared
 
         public T Data { get; set; }
 
-        //public List<ValidationResult> ValidationErrors { get; set; }
-
         public Exception Exception { get; set; }
 
         public int Code { get; set; }

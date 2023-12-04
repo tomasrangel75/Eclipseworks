@@ -1,6 +1,7 @@
 ﻿using Eclipseworks.Application.Interfaces.Repositories;
 using Eclipseworks.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Eclipseworks.Persistence.Repositories
 {
@@ -22,5 +23,11 @@ namespace Eclipseworks.Persistence.Repositories
         {
             return await _repository.Entities.AnyAsync(x => x.Id != tarefaId && x.Titulo.Equals(titulo.Trim()));
         }
+
+        public async Task<int> VerificaNumeroDeTarefasPorProjeto(int projetoId)
+        {
+            return await _repository.Entities.CountAsync(t => t.ProjetoId == projetoId);
+        }
+        
     }
 }

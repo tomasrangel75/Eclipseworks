@@ -13,17 +13,15 @@ namespace Eclipseworks.Application.Interfaces.Validacao
         public ValidaProjeto()
         {
             RuleFor(x => x.Nome)
-               .NotNull()
-               .NotEmpty()
-               .WithMessage("O nome do projeto deve ser preenchido.");
+               .NotNull().WithMessage("O nome do projeto não pode ser nulo.")
+               .NotEmpty().WithMessage("O nome do projeto deve ser preenchido.");
 
             RuleFor(x => x.Nome).Length(3, 50)
                 .WithMessage("O nome deve ter entre 3 e 50 caracteres.");
 
             RuleFor(x => x.Descricao)
-              .NotNull()
-              .NotEmpty()
-              .WithMessage("A descrição do projeto deve ser preenchida.");
+              .NotNull().WithMessage("A descrição não pode ser nula.")
+              .NotEmpty().WithMessage("A descrição do projeto deve ser preenchida.");
 
             RuleFor(x => x.Descricao).Length(3, 100)
                 .WithMessage("A descrição deve ter entre 3 e 100 caracteres.");

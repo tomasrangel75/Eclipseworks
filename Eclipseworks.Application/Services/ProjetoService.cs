@@ -64,7 +64,7 @@ namespace Eclipseworks.Services.Services
 
                 await _unitOfWork.Save();
 
-                return await Result<int>.SuccessAsync(projeto.Id, "Projeto criado com sucesso.");
+                return await Result<int>.SuccessAsync("Projeto criado com sucesso.");
             }
             catch (Exception ex)
             {
@@ -85,7 +85,7 @@ namespace Eclipseworks.Services.Services
                     if (tarefasPendentes != null && tarefasPendentes.Any())
                     {
                         var mensagemTarefasPendentes =
-                            tarefasPendentes.Select(item => $"A tarefa de ID {item.Id} está pendente. Conclua ou remova a tarefa primeiro").ToList();
+                            tarefasPendentes.Select(item => $"A tarefa de ID {item.Id} está pendente. Conclua ou remova a tarefa primeiro.").ToList();
 
                         return await Result<int>.FailureAsync(mensagemTarefasPendentes);
                     }
